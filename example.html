@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>read dta file</title>
+</head>
+
+<body>
+	<form name="uploadForm">
+		<input id="asJSON" type="checkbox">input data as JSON<br>
+		<input id="uploadInput" type="file" onchange="onNewFile(this.files)">
+	</form>
+	
+	<script type="text/javascript" src="StataDta.js" charset="UTF-8"></script>
+    
+	<script>
+		onNewFile = function (files) {
+			var fileReader = new FileReader();
+			var asJSON = document.getElementById('asJSON').checked;
+			
+			fileReader.onload = function (e) {
+				var dtaView = new DataView(e.target.result); 
+				dta = StataDta.open(dtaView, asJSON);
+			};
+			
+			fileReader.readAsArrayBuffer(files[0]);
+		};
+    </script>
+</body>
+</html>
